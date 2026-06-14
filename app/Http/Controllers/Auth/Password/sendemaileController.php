@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth\Password;
+namespace App\Http\Controllers\Auth\Password;
 
 use App\Function\Respons;
 use App\Http\Controllers\Controller;

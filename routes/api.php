@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\SyncController;
-use App\Http\Controllers\User\Auth\LogoutUserController;
-use App\Http\Controllers\User\Auth\Password\NewPasswordController;
-use App\Http\Controllers\User\Auth\Password\RessetpasswordController;
-use App\Http\Controllers\User\Auth\Password\sendemaileController;
-use App\Http\Controllers\User\Auth\Password\VerifyemailController;
-use App\Http\Controllers\User\Auth\UpdateUserController;
+use App\Http\Controllers\Auth\LogoutUserController;
+use App\Http\Controllers\Auth\Password\NewPasswordController;
+use App\Http\Controllers\Auth\Password\RessetpasswordController;
+use App\Http\Controllers\Auth\Password\sendemaileController;
+use App\Http\Controllers\Auth\Password\VerifyemailController;
+use App\Http\Controllers\Auth\UpdateUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuth;
 
@@ -18,8 +18,8 @@ Route::post('/User/sendCode', [sendemaileController::class, 'sendCode']);
 Route::post('/User/verifyCode', [VerifyemailController::class, 'verifyCode']);
 Route::post('/User/newpassword', [NewPasswordController::class, 'newpassword']);
 
-Route::post('/User/create', [\App\Http\Controllers\User\Auth\RegisterController::class, "RegisterUser"]);
-Route::post('/User/Login', [\App\Http\Controllers\User\Auth\LoginUserController::class, "login"]);
+Route::post('/User/create', [\App\Http\Controllers\Auth\RegisterController::class, "RegisterUser"]);
+Route::post('/User/Login', [\App\Http\Controllers\Auth\LoginUserController::class, "login"]);
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/User/update', [UpdateUserController::class, 'UpdateUser']);
 
     Route::post('/User/resetpassword', [RessetpasswordController::class, 'reset']);
-    Route::get('/User/get', [\App\Http\Controllers\User\Auth\RegisterController::class, "getuser"]);
+    Route::get('/User/get', [\App\Http\Controllers\Auth\RegisterController::class, "getuser"]);
 
     Route::get('/logout', [GoogleAuth::class, 'logout']);
     Route::post('/user/update', [GoogleAuth::class, 'update']);

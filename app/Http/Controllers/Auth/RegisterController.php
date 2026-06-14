@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Function\Respons;
 use App\Function\UserService;

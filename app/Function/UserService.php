@@ -25,7 +25,7 @@ class UserService
                 'password' => Hash::make($data['password']),
                 'codeverify' => $statusCode,
                 'date_experiment' => now()->addMonths(2),
-                "token" => $data['token'],
+                "token" => $data['token']??"",
                 "role" => "hall",
                 "hallname" => $data['hallname'],
                 "adresse" => $data['adresse'],

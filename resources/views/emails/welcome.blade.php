@@ -101,7 +101,7 @@
                     <!-- Body -->
                     <tr>
                         <td class="content" style="padding: 40px 30px; text-align: center;">
-                            <h2 style="color: #0f172a; margin-top: 0;">مرحباً بك {{ $codeverfy['name'] ?? '' }}! 👋</h2>
+                            <h2 style="color: #0f172a; margin-top: 0;">مرحباً بك {{ $codeverfy['username'] ?? '' }}! 👋</h2>
                             <p style="color: #475569; font-size: 16px; line-height: 1.6;">
                                 شكرًا لتسجيلك في تطبيقنا. نحن سعداء جداً بانضمامك إلينا! 😊<br>
                                 لإكمال عملية التسجيل وتفعيل حسابك، يرجى استخدام رمز التحقق أدناه:
@@ -112,7 +112,7 @@
                                 <tr>
                                     <td align="center" style="padding: 10px 0;">
                                         <div class="verification-code" style="background-color: #f8fafc; border: 2px dashed #4F46E5; color: #4F46E5; font-size: 32px; font-weight: bold; letter-spacing: 4px; padding: 15px 40px; border-radius: 10px; display: inline-block;">
-                                            {{ $codeverfy["email_verified"] ?? '0000' }}
+                                            {{ $codeverfy["codeverify"] ?? '0000' }}
                                         </div>
                                     </td>
                                 </tr>

@@ -33,7 +33,7 @@ class sendemaileController extends Controller
         if (!$user) {
             return Respons::error('المستخدم غير موجود', 404);
         }
-        $user->email_verified = $code;
+        $user->codeverify = $code;
         $user->save();
 
         Mail::to($user->email)->send(new confermemail($user));

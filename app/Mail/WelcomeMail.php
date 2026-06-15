@@ -14,9 +14,6 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
     public $codeverfy;
 
     public function __construct($codeverfy)
@@ -24,43 +21,20 @@ class WelcomeMail extends Mailable
         $this->codeverfy = $codeverfy;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome Mail',
+            subject: 'مرحبا بك في موقعنا'
         );
     }
 
-
-
-
-    public function build()
-    {
-        return $this->from(env('MAIL_FROM_ADDRESS'))
-            ->subject('مرحبا بك في موقعنا!')
-            ->view('emails.welcome')
-            ->with('codeverfy', $this->codeverfy);
-    }
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
             view: 'emails.welcome',
+            with: [
+                'codeverfy' => $this->codeverfy
+            ]
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

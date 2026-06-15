@@ -27,12 +27,12 @@ class VerifyemailController extends Controller
             return Respons::error('المستخدم غير موجود', 404);
         }
 
-        if ($user->email_verified != $request->code) {
+        if ($user->codeverify != $request->code) {
             return Respons::error('رمز التحقق غير صحيح', 401);
         }
 
         $user->Status =1;
-        $user->email_verified = null;
+        $user->codeverify = null;
         $user->save();
 
         $token = $user->createToken('api_token')->plainTextToken;

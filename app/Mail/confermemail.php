@@ -32,7 +32,7 @@ class confermemail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.confirm-email',
+            view: 'emails.ConfirmEmail',
             with: [
                 'user' => $this->user,
                 'code' => $this->code

@@ -102,7 +102,7 @@
                     <!-- Body -->
                     <tr>
                         <td class="content" style="padding: 40px 30px; text-align: center;">
-                            <h2 style="color: #0f172a; margin-top: 0;">مرحباً بك {{ $codeverfy['username'] ?? '' }}</h2>
+                            <h2 style="color: #0f172a; margin-top: 0;">مرحباً بك {{ $user->username ?? '' }}</h2>
                             <p style="color: #475569; font-size: 16px; line-height: 1.6;">
                                 لقد تلقينا طلباً لتأكيد بريدك الإلكتروني.<br>
                                 يرجى استخدام رمز التحقق أدناه لإتمام العملية بنجاح:
@@ -113,7 +113,7 @@
                                 <tr>
                                     <td align="center" style="padding: 10px 0;">
                                         <div class="verification-code" style="background-color: #f8fafc; border: 2px dashed #4F46E5; color: #4F46E5; font-size: 38px; font-weight: bold; letter-spacing: 6px; padding: 15px 40px; border-radius: 10px; display: inline-block;">
-                                            {{ $codeverfy["codeverify"] ?? '0000' }}
+                                            {{ $code ?? '' }}
                                         </div>
                                     </td>
                                 </tr>

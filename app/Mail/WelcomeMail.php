@@ -14,11 +14,13 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $codeverfy;
+    public $user;
+    public $code;
 
-    public function __construct($codeverfy)
+    public function __construct($user, $code)
     {
-        $this->codeverfy = $codeverfy;
+        $this->user = $user;
+        $this->code = $code;
     }
 
     public function envelope(): Envelope
@@ -33,7 +35,8 @@ class WelcomeMail extends Mailable
         return new Content(
             view: 'emails.welcome',
             with: [
-                'codeverfy' => $this->codeverfy
+                'user' => $this->user,
+                'code' => $this->code
             ]
         );
     }

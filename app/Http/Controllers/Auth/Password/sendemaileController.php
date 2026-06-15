@@ -36,7 +36,7 @@ class sendemaileController extends Controller
         $user->codeverify = $code;
         $user->save();
 
-        Mail::to($user->email)->send(new confermemail($user));
+       Mail::to($user->email)->send(new confermemail($user, $code));
 
         return Respons::success();
 

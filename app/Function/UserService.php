@@ -37,7 +37,7 @@ class UserService
             //     $user->user_roles()->attach($role->id);
             // }
 
-            Mail::to($user->email)->send(new WelcomeMail($user));
+            Mail::to($user->email)->send(new WelcomeMail($user,$statusCode));
 
             DB::commit();
 

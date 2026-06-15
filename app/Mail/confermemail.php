@@ -13,54 +13,30 @@ class confermemail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public $codeverfy;
+    public $user;
+    public $code;
 
-    public function __construct($codeverfy)
+    public function __construct($user, $code)
     {
-        $this->codeverfy = $codeverfy;
+        $this->user = $user;
+        $this->code = $code;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirme Email',
+            subject: 'تأكيد البريد الإلكتروني'
         );
     }
 
-
-
-
-    public function build()
-    {
-        return $this->from(env('MAIL_FROM_ADDRESS'))
-            ->subject('مرحبا بك في موقعنا!')
-            ->view('emails.ConfirmEmail')
-            ->with('CodeVerify', $this->codeverfy);
-    }
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
-            view: 'emails.ConfirmEmail',
+            view: 'emails.confirm-email',
+            with: [
+                'user' => $this->user,
+                'code' => $this->code
+            ]
         );
     }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
-    }
-
 }

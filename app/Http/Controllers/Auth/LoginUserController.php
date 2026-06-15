@@ -19,20 +19,20 @@ class LoginUserController extends Controller
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|string',
-                'fcm_token' => 'nullable|string',
+                'token' => 'nullable|string',
             ]);
 
-            $data = Login::loginUser($request->email, $request->password, 2);
+            $data = Login::loginUser($request->email, $request->password, "hall");
 
             $user = User::where('email', $request->email)->first();
 
-            if ($request->filled('fcm_token')) {
+            if ($request->filled('token')) {
                 $user->update([
-                    'fcm_token' => $request->fcm_token,
+                    'token' => $request->token,
                 ]);
             }
 
-            $notification = new Notification();
+            // $notification = new Notification();
             // $result = $notification->sendNotificationToTopic('users', 'تنبيه جديد', 'هذا إشعار جماعي');
 
             return Respons::success([

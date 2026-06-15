@@ -8,11 +8,11 @@ use Illuminate\Validation\ValidationException;
 
 class Login
 {
-    public static function loginUser(string $email, string $password, int $ROLE)
+    public static function loginUser(string $email, string $password, string $ROLE)
     {
         $user = User::where("email", $email)->first();
 
-        if (!$user || !Hash::check($password, $user->password) || $user->user_role != $ROLE) {
+        if (!$user || !Hash::check($password, $user->password) || $user->role != $ROLE) {
             throw ValidationException::withMessages([
                 'email' => ['البريد الإلكتروني أو كلمة المرور غير صحيحة'],
             ]);

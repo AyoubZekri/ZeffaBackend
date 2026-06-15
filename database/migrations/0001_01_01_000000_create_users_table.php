@@ -38,6 +38,8 @@ return new class extends Migration {
             $table->string("numperPhone")->nullable();
             
             $table->date("date_experiment")->nullable();
+            $table->string("adresse")->nullable();
+
             
             $table->rememberToken();
             $table->timestamps();

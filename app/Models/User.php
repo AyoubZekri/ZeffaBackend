@@ -31,6 +31,8 @@ class User extends Authenticatable
         'hallname',
         'username',
         "date_experiment",
+        "adresse",
+
         'role',
         'status',
     ];

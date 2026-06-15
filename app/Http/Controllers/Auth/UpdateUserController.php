@@ -29,9 +29,9 @@ class UpdateUserController extends Controller
             }
 
             $data=[
-                'name' => $request->name,
-                'family_name' => $request->family_name,
-                'phone_number' => $request->phone_number,
+                'username' => $request->username,
+                'hallname' => $request->hallname,
+                'numperPhone' => $request->numperPhone,
                 'adresse' => $request->adresse,
             ];
 

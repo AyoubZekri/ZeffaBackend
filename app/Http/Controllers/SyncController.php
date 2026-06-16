@@ -296,14 +296,15 @@ class SyncController extends Controller
     public function syncDeleteData(Request $request, $table)
     {
         $allowedTables = [
-            'categoris',
-            'invoies',
+            'party_types',
+            'reservations',
+            'cat_dishes',
+            'dishes',
+            'reservation_dishes',
+            'special_dates',
+            'expenses',
+            'notes',
             'notifications',
-            'products',
-            'reports',
-            'transactions',
-            'zakats',
-            'sales',
         ];
         if (!in_array($table, $allowedTables)) {
             return response()->json(['status' => 0, 'message' => 'جدول غير مسموح'], 400);

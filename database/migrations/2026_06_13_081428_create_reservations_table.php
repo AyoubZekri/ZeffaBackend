@@ -24,7 +24,7 @@ return new class extends Migration {
 
             $table->integer('booking_period')->nullable();
 
-            $table->uuid('type_of_party_uuid')->nullable();
+            $table->string('type_of_party_uuid')->nullable();
 
             $table->decimal('price', 12, 2)->nullable();
 

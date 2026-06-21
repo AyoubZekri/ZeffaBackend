@@ -93,7 +93,7 @@ class GoogleAuth extends Controller
                 'password' => Hash::make("password@1234"),
             ]);
 
-
+            \App\Function\UserService::seedDefaultTermsForUser($user->id);
 
             // Mail::to($user['email'])->send(new WelcomeMail($user));
 

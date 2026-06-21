@@ -20,6 +20,8 @@ class SyncController extends Controller
         'expenses',
         'notes',
         'notifications',
+        'terms',
+        'terms_content',
     ];
 
     // ===============================================
@@ -305,6 +307,8 @@ class SyncController extends Controller
             'expenses',
             'notes',
             'notifications',
+            'terms',
+            'terms_content',
         ];
         if (!in_array($table, $allowedTables)) {
             return response()->json(['status' => 0, 'message' => 'جدول غير مسموح'], 400);

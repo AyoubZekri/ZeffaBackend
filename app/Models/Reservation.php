@@ -11,6 +11,7 @@ class Reservation extends Model
         'user_id',
         'username',
         'phone_numper',
+        'numperReservation',
         'booking_date',
         'booking_period',
         'type_of_party_uuid',

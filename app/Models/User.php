@@ -27,6 +27,7 @@ class User extends Authenticatable
         'user_notify_status',
         'codeverify',
         "numperPhone",
+        'fieldPhone',
         'token',
         'hallname',
         'username',

@@ -21,7 +21,8 @@ class UpdateUserController extends Controller
                 "image"=>"nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
                 'username' => 'required|string|max:255',
                 'hallname' => 'required|string|max:255',
-                'numperPhone' => 'required|string|max:12',
+                'numperPhone' => 'required|string|max:15',
+                'fieldPhone' => 'nullable|string|max:15',
             ]);
 
             if ($validator->fails()) {
@@ -33,6 +34,7 @@ class UpdateUserController extends Controller
                 'hallname' => $request->hallname,
                 'numperPhone' => $request->numperPhone,
                 'adresse' => $request->adresse,
+                'fieldPhone' => $request->fieldPhone,
             ];
 
             $user = User::find(auth()->id());

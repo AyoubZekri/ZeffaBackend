@@ -39,7 +39,6 @@ return new class extends Migration {
             
             $table->date("date_experiment")->nullable();
             $table->string("adresse")->nullable();
-
             
             $table->rememberToken();
             $table->timestamps();

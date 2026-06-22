@@ -35,8 +35,25 @@ class User extends Authenticatable
         "adresse",
 
         'role',
+        'role_id',
+        'user_id',
         'status',
     ];
+
+    public function roleDetails()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(User::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubUserController;
 use App\Http\Controllers\SyncController;
 use App\Http\Controllers\Auth\LogoutUserController;
 use App\Http\Controllers\Auth\Password\NewPasswordController;
@@ -36,6 +38,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/sync/{table}', [SyncController::class, 'getData']);
     Route::post('/sync/{table}', [SyncController::class, 'syncData']);
     Route::post('/sync/delete/{table}', [SyncController::class, 'syncDeleteData']);
+
+
+    Route::get('/sub-users/get', [SubUserController::class, 'index']);
+    Route::post('/sub-users/add', [SubUserController::class, 'store']);
+    Route::post('/sub-users/update/{id}', [SubUserController::class, 'update']);
+    Route::post('/sub-users/delete/{id}', [SubUserController::class, 'destroy']);
+
+    Route::get('/roles/get', [RoleController::class, 'index']);
+    Route::post('/roles/add', [RoleController::class, 'store']);
+    Route::post('/roles/update/{id}', [RoleController::class, 'update']);
+    Route::post('/roles/delete/{id}', [RoleController::class, 'destroy']);
 
 });
 

@@ -24,7 +24,7 @@ class LoginUserController extends Controller
 
             $data = Login::loginUser($request->email, $request->password, "hall");
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::with(['parent', 'roleDetails'])->where('email', $request->email)->first();
 
             if ($request->filled('token')) {
                 $user->update([
@@ -32,8 +32,8 @@ class LoginUserController extends Controller
                 ]);
             }
 
-            // $notification = new Notification();
-            // $result = $notification->sendNotificationToTopic('users', 'تنبيه جديد', 'هذا إشعار جماعي');
+            // تحديث بيانات المستخدم المرجعة في المتغير data
+            $data['user'] = $user;
 
             return Respons::success([
                 'user' => $data,

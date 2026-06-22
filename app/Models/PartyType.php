@@ -15,7 +15,8 @@ class PartyType extends Model
         'content',
         'basic_price',
         'seasonal_price',
-        'icon'
+        'icon',
+        'guest_pricing_tiers'
     ];
 
     public function reservations()

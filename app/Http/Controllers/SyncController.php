@@ -45,7 +45,7 @@ class SyncController extends Controller
             $record = DB::table($targetTable)
                 ->where('id', $row[$fkIdName])
                 // التحقق من الملكية بناءً على 'user_id' باستثناء جدول 'reports'
-                ->where('user_id', auth()->id())
+                ->where('user_id', auth()->user()->user_id ?? auth()->id())
                 ->first();
 
             if ($record) {
@@ -75,7 +75,7 @@ class SyncController extends Controller
             $record = DB::table($targetTable)
                 ->where('uuid', $data[$uuidName])
                 // التحقق من الملكية
-                ->where('user_id', auth()->id())
+                ->where('user_id', auth()->user()->user_id ?? auth()->id())
                 ->first();
 
             if ($record) {
@@ -163,7 +163,7 @@ class SyncController extends Controller
 
         $query = DB::table($table)
             ->where('updated_at', '>', $since)
-            ->where('user_id', auth()->id());
+            ->where('user_id', auth()->user()->user_id ?? auth()->id());
 
 
         $data = $query
@@ -227,7 +227,7 @@ class SyncController extends Controller
 
                 $existing = DB::table($table)
                     ->where('uuid', $uuid)
-                    ->where('user_id', auth()->id())
+                    ->where('user_id', auth()->user()->user_id ?? auth()->id())
                     ->first();
 
 
@@ -240,7 +240,7 @@ class SyncController extends Controller
                     $data['updated_at'] = isset($data['updated_at'])
                         ? Carbon::parse($data['updated_at'])->addMinutes(70)->format('Y-m-d H:i:s')
                         : $now->addMinutes(70)->format('Y-m-d H:i:s');
-                    $data['user_id'] = auth()->id();
+                    $data['user_id'] = auth()->user()->user_id ?? auth()->id();
 
 
                     try {
@@ -263,7 +263,7 @@ class SyncController extends Controller
 
                             DB::table($table)
                                 ->where('uuid', $uuid)
-                                ->where('user_id', auth()->id())
+                                ->where('user_id', auth()->user()->user_id ?? auth()->id())
                                 ->update($data);
 
                             $results[] = ['status' => 'updated', 'uuid' => $uuid];
@@ -332,7 +332,7 @@ class SyncController extends Controller
 
                 $record = DB::table($table)
                     ->where('uuid', $uuid)
-                    ->where('user_id', auth()->id())
+                    ->where('user_id', auth()->user()->user_id ?? auth()->id())
                     ->first();
 
                 if (!$record) {
@@ -343,7 +343,7 @@ class SyncController extends Controller
 
                 DB::table($table)
                     ->where('uuid', $uuid)
-                    ->where('user_id', auth()->id())
+                    ->where('user_id', auth()->user()->user_id ?? auth()->id())
                     ->delete();
 
 

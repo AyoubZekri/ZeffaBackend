@@ -58,16 +58,13 @@ class RegisterController extends Controller
     {
 
         try {
-            $user = User::where("id", auth()->id())->get();
+            // إذا كان المستخدم لديه user_id (أي أنه subuser)، نجلب المستخدم الأساسي، وإلا نجلب المستخدم نفسه
+            $userId = auth()->user()->user_id ?? auth()->id();
+            
+            $user = User::with(['roleDetails', 'parent'])->where("id", $userId)->get();
             return Respons::success(['data' => $user]);
         } catch (\Exception $th) {
-            return Respons::error('المستخدم غير موجودة', 404);
+            return Respons::error('المستخدم غير موجود', 404);
         }
-
     }
-
-
-
-
 }
-

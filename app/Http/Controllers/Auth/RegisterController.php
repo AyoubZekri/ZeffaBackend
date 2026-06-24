@@ -58,11 +58,16 @@ class RegisterController extends Controller
     {
 
         try {
-            // إذا كان المستخدم لديه user_id (أي أنه subuser)، نجلب المستخدم الأساسي، وإلا نجلب المستخدم نفسه
-            $userId = auth()->user()->user_id ?? auth()->id();
-            
-            $user = User::with(['roleDetails', 'parent'])->where("id", $userId)->get();
-            return Respons::success(['data' => $user]);
+            // نجلب المستخدم الحالي مع الدور (roleDetails) والمستخدم الأساسي (parent)
+            $user = User::with(['roleDetails', 'parent'])->where("id", auth()->id())->first();
+
+            // إذا كان المستخدم أساسياً (ليس لديه user_id)، نضع parent كأنه هو لتجنب مشاكل التطبيق
+            if ($user && $user->user_id == null) {
+                $user->setRelation('parent', $user);
+            }
+
+            // نضع المستخدم في مصفوفة لأن get() السابقة كانت ترجع مصفوفة (Collection)
+            return Respons::success(['data' => [$user]]);
         } catch (\Exception $th) {
             return Respons::error('المستخدم غير موجود', 404);
         }

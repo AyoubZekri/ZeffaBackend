@@ -22,9 +22,18 @@ class LoginUserController extends Controller
                 'token' => 'nullable|string',
             ]);
 
-            $data = Login::loginUser($request->email, $request->password, "hall");
-
             $user = User::with(['parent', 'roleDetails'])->where('email', $request->email)->first();
+
+            if (!$user || !\Hash::check($request->password, $user->password)) {
+                return Respons::error('البريد الإلكتروني أو كلمة المرور غير صحيحة', 422);
+            }
+
+            // التحقق من الصلاحيات: إما أن يكون المستخدم الأساسي (role='hall') أو مستخدم فرعي (له user_id)
+            if ($user->user_id == null && $user->role != 'hall') {
+                return Respons::error('ليس لديك الصلاحية لتسجيل الدخول', 403);
+            }
+
+            $token = $user->createToken('api_token')->plainTextToken;
 
             if ($request->filled('token')) {
                 $user->update([
@@ -32,8 +41,15 @@ class LoginUserController extends Controller
                 ]);
             }
 
-            // تحديث بيانات المستخدم المرجعة في المتغير data
-            $data['user'] = $user;
+            // إذا كان المستخدم أساسياً، نجعل بيانات الـ parent هي نفس بياناته حتى لا يتعطل التطبيق في Flutter
+            if ($user->user_id == null) {
+                $user->setRelation('parent', $user);
+            }
+
+            $data = [
+                'user' => $user,
+                'token' => $token,
+            ];
 
             return Respons::success([
                 'user' => $data,

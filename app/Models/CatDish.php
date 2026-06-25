@@ -10,7 +10,8 @@ class CatDish extends Model
         'uuid',
         'user_id',
         'name',
-        'image'
+        'image',
+        "is_delete"
     ];
 
     public function dishes()

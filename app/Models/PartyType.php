@@ -16,7 +16,8 @@ class PartyType extends Model
         'basic_price',
         'seasonal_price',
         'icon',
-        'guest_pricing_tiers'
+        'guest_pricing_tiers',
+        "is_delete"
     ];
 
     public function reservations()

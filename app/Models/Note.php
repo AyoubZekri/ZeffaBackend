@@ -10,7 +10,8 @@ class Note extends Model
         'uuid',
         'user_id',
         'title',
-        'description'
+        'description',
+        "is_delete"
     ];
 
 

@@ -12,7 +12,8 @@ class Notification extends Model
         'title',
         'content',
         'is_read',
-        'type'
+        'type',
+        "is_delete"
     ];
 
 

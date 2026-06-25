@@ -12,7 +12,8 @@ class Expense extends Model
         'type',
         'description',
         'value',
-        'date_perry'
+        'date_perry',
+        "is_delete"
     ];
 
     public function user()

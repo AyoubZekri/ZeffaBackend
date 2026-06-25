@@ -10,7 +10,8 @@ class Term extends Model
         'uuid',
         'user_id',
         'title',
-        'type'
+        'type',
+        "is_delete"
     ];
 
     public function contents()

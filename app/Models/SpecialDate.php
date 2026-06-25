@@ -14,7 +14,8 @@ class SpecialDate extends Model
         'type',
         'start_date',
         'end_date',
-        'date'
+        'date',
+        "is_delete"
     ];
 
     public function user()

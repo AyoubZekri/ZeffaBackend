@@ -12,7 +12,8 @@ class TermContent extends Model
         'uuid',
         'term_uuid',
         'user_id',
-        'content'
+        'content',
+        "is_delete"
     ];
 
     public function term()

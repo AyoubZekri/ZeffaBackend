@@ -11,5 +11,6 @@ class ReservationService extends Model
         'reservation_uuid',
         'service_uuid',
         'user_id',
+        "is_delete"
     ];
 }

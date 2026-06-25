@@ -11,6 +11,7 @@ class Dish extends Model
         'user_id',
         'cat_uuid',
         'name',
+        "is_delete",
         'image'
     ];
 

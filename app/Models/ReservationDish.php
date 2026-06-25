@@ -9,7 +9,8 @@ class ReservationDish extends Model
     protected $fillable = [
         'uuid',
         'reservation_uuid',
-        'dishes_uuid'
+        'dishes_uuid',
+        "is_delete"
     ];
 
     public function user()

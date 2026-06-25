@@ -21,7 +21,8 @@ class Reservation extends Model
         'remaining_amount',
         'number_of_men',
         'number_of_women',
-        'added_by_name'
+        'added_by_name',
+        "is_delete"
     ];
 
     public function partyType()

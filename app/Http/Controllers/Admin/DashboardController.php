@@ -22,9 +22,16 @@ class DashboardController extends Controller
             });
         }
 
+        $stats = [
+            'total' => User::where('role', 'hall')->count(),
+            'desktop_only' => User::where('role', 'hall')->where('status', 2)->count(),
+            'desktop_mobile' => User::where('role', 'hall')->where('status', 3)->count(),
+            'permanent' => User::where('role', 'hall')->where('status', 4)->count(),
+        ];
+
         $users = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('admin.dashboard', compact('users', 'search'));
+        return view('admin.dashboard', compact('users', 'search', 'stats'));
     }
 
     public function updateStatus(Request $request, $id)

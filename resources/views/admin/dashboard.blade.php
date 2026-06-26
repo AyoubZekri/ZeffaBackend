@@ -7,22 +7,26 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: rgba(30, 41, 59, 0.7);
-            --accent-primary: #6366f1;
-            --accent-secondary: #4f46e5;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-body: #0b0f19;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
+            --bg-input: #111827;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --accent-color: #6366f1;
+            --accent-hover: #4f46e5;
+            --border-color: #374151;
             --success: #10b981;
             --warning: #f59e0b;
-            --danger: #ef4444;
             --info: #06b6d4;
-            --glass-blur: 16px;
+            --danger: #ef4444;
+            --card-glow: rgba(99, 102, 241, 0.1);
         }
 
         * {
@@ -30,58 +34,217 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', 'Outfit', sans-serif;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            background-color: var(--bg-primary);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
-            background-attachment: fixed;
+            background-color: var(--bg-body);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 2rem 1.5rem;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        header {
-            margin-bottom: 2.5rem;
             display: flex;
-            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            display: flex;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-brand i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .sidebar-brand span {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #a5b4fc, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--text-primary);
+        }
+
+        .sidebar-link.active i {
+            color: var(--accent-color);
+        }
+
+        /* Main Workspace */
+        .main-content {
+            margin-right: 260px;
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Topbar Style */
+        .topbar {
+            height: 70px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .topbar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
             gap: 1.5rem;
         }
 
-        .logo-section h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #a5b4fc, #818cf8, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.25rem;
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
         }
 
-        .logo-section p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+        .profile-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1rem;
         }
 
-        /* Search Section */
-        .search-card {
-            background: var(--bg-secondary);
-            backdrop-filter: blur(var(--glass-blur));
+        /* Content Container */
+        .content-container {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: transparent;
+        }
+
+        .stat-card.total::after { background: var(--accent-color); }
+        .stat-card.desktop-only::after { background: var(--warning); }
+        .stat-card.desktop-mobile::after { background: var(--info); }
+        .stat-card.permanent::after { background: var(--success); }
+
+        .stat-info h4 {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-info p {
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-card.total .stat-icon { background-color: rgba(99, 102, 241, 0.1); color: var(--accent-color); }
+        .stat-card.desktop-only .stat-icon { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-card.desktop-mobile .stat-icon { background-color: rgba(6, 182, 212, 0.1); color: var(--info); }
+        .stat-card.permanent .stat-icon { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+
+        /* Filter Section */
+        .filter-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
         }
 
         .search-form {
@@ -95,88 +258,70 @@
             flex: 1;
         }
 
+        .search-input-wrapper i {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
         .search-input {
             width: 100%;
-            padding: 0.85rem 1.2rem;
+            padding: 0.8rem 2.8rem 0.8rem 1rem;
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.6);
+            background: var(--bg-input);
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-color);
         }
 
         .btn {
-            padding: 0.85rem 1.8rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 10px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background-color: var(--accent-color);
             color: white;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+            background-color: var(--accent-hover);
         }
 
-        .btn-reset {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
+        .btn-secondary {
+            background-color: transparent;
             border: 1px solid var(--border-color);
-            text-decoration: none;
+            color: var(--text-secondary);
         }
 
-        .btn-reset:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
         }
 
-        /* Alerts */
-        .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            animation: slideDown 0.4s ease;
-        }
-
-        .alert-success {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Table Card */
+        /* Table Section */
         .table-card {
-            background: var(--bg-secondary);
-            backdrop-filter: blur(var(--glass-blur));
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .table-responsive {
@@ -191,421 +336,428 @@
         }
 
         th {
-            background: rgba(15, 23, 42, 0.4);
-            padding: 1.2rem 1rem;
-            font-size: 0.9rem;
+            background-color: rgba(17, 24, 39, 0.5);
+            padding: 1rem 1.5rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-secondary);
             border-bottom: 1px solid var(--border-color);
-            text-transform: uppercase;
         }
 
         td {
-            padding: 1.2rem 1rem;
-            font-size: 0.95rem;
-            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
             border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+            background-color: rgba(255, 255, 255, 0.01);
         }
 
         /* Badges */
-        .badge {
-            padding: 0.35rem 0.75rem;
+        .status-badge {
+            padding: 0.25rem 0.65rem;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
         }
 
-        .badge-0 {
-            background: rgba(148, 163, 184, 0.15);
-            color: #cbd5e1;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-        }
+        .status-2 { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .status-3 { background-color: rgba(6, 182, 212, 0.1); color: var(--info); border: 1px solid rgba(6, 182, 212, 0.2); }
+        .status-4 { background-color: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .status-default { background-color: rgba(156, 163, 175, 0.1); color: var(--text-secondary); border: 1px solid rgba(156, 163, 175, 0.2); }
 
-        .badge-2 {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .badge-3 {
-            background: rgba(6, 182, 212, 0.15);
-            color: #22d3ee;
-            border: 1px solid rgba(6, 182, 212, 0.3);
-        }
-
-        .badge-4 {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        /* Action Buttons */
-        .actions-cell {
+        /* Actions Grid/Row */
+        .actions-group {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
         }
 
-        .btn-action {
-            padding: 0.5rem 0.85rem;
+        .action-icon-btn {
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: none;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-sidebar);
+            color: var(--text-secondary);
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.25rem;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
 
-        .btn-status-2 {
-            background: rgba(245, 158, 11, 0.1);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+        .action-icon-btn:hover {
+            color: var(--text-primary);
         }
 
-        .btn-status-2:hover {
-            background: var(--warning);
-            color: var(--bg-primary);
-        }
+        .action-icon-btn.btn-s2:hover { background-color: rgba(245, 158, 11, 0.15); color: var(--warning); border-color: var(--warning); }
+        .action-icon-btn.btn-s3:hover { background-color: rgba(6, 182, 212, 0.15); color: var(--info); border-color: var(--info); }
+        .action-icon-btn.btn-s4:hover { background-color: rgba(16, 185, 129, 0.15); color: var(--success); border-color: var(--success); }
+        .action-icon-btn.btn-dt:hover { background-color: rgba(99, 102, 241, 0.15); color: var(--accent-color); border-color: var(--accent-color); }
 
-        .btn-status-3 {
-            background: rgba(6, 182, 212, 0.1);
-            color: #22d3ee;
-            border: 1px solid rgba(6, 182, 212, 0.3);
-        }
-
-        .btn-status-3:hover {
-            background: var(--info);
-            color: var(--bg-primary);
-        }
-
-        .btn-status-4 {
-            background: rgba(16, 185, 129, 0.1);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-status-4:hover {
-            background: var(--success);
-            color: var(--bg-primary);
-        }
-
-        .btn-date {
-            background: rgba(99, 102, 241, 0.1);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-date:hover {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        /* Modal / Dialog Overlay */
-        .modal {
+        /* Modal popup styles */
+        .custom-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(8px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(4px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 1rem;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .custom-modal.show { display: flex; }
 
-        .modal-content {
-            background: #1e293b;
+        .modal-body {
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            max-width: 450px;
-            width: 100%;
             padding: 2rem;
+            max-width: 440px;
+            width: 90%;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
+        .modal-title-wrapper {
             margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-primary);
+        .modal-title-wrapper h3 { font-size: 1.2rem; font-weight: 700; }
+
+        .close-modal-btn {
+            background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.25rem;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+        .close-modal-btn:hover { color: var(--text-primary); }
 
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
+        .form-label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-secondary); }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .datepicker-input {
+        .form-control-date {
             width: 100%;
-            padding: 0.85rem 1rem;
-            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            background-color: var(--bg-sidebar);
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
 
-        .datepicker-input:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-        }
-
-        .modal-footer {
+        .modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
-        /* Pagination */
-        .pagination-wrapper {
-            padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.2);
+        /* Success alerts toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: #064e3b;
+            border: 1px solid var(--success);
+            color: #d1fae5;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            animation: slideInLeft 0.3s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pagination-container {
+            padding: 1.25rem;
+            display: flex;
+            justify-content: center;
             border-top: 1px solid var(--border-color);
         }
 
-        /* Empty state */
-        .empty-state {
-            padding: 4rem 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        .empty-state h3 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+        /* Responsive */
+        @media(max-width: 992px) {
+            .sidebar { display: none; }
+            .main-content { margin-right: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <div class="logo-section">
-            <h1>لوحة التحكم المتقدمة</h1>
-            <p>إدارة الحسابات وتفعيل القاعات الفعالة (دور: Hall)</p>
+<!-- Sidebar Section -->
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <i class="fa-solid fa-gem"></i>
+        <span>زفة - Zeffa</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li>
+            <a href="#" class="sidebar-link active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>لوحة التحكم</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-users"></i>
+                <span>إدارة المستخدمين</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>الإعدادات</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<!-- Main content section -->
+<main class="main-content">
+    <header class="topbar">
+        <div class="topbar-title">لوحة تحكم المشرف</div>
+        <div class="topbar-actions">
+            <button class="profile-btn">
+                <div class="profile-img">A</div>
+                <span>المدير العام</span>
+            </button>
         </div>
     </header>
 
-    @if (session('success'))
-        <div class="alert alert-success" id="success-alert">
-            <span>{{ session('success') }}</span>
-            <button onclick="document.getElementById('success-alert').remove()" style="background:none; border:none; color:inherit; cursor:pointer; font-size:1.2rem;">&times;</button>
-        </div>
-    @endif
-
-    <!-- Search bar -->
-    <div class="search-card">
-        <form action="{{ route('admin.dashboard') }}" method="GET" class="search-form">
-            <div class="search-input-wrapper">
-                <input type="text" name="search" value="{{ $search }}" class="search-input" placeholder="البحث بالبريد الإلكتروني، اسم المستخدم، أو اسم القاعة...">
+    <div class="content-container">
+        
+        <!-- Stats Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-info">
+                    <h4>إجمالي القاعات</h4>
+                    <p>{{ $stats['total'] }}</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fa-solid fa-hotel"></i>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">بحث</button>
-            @if(!empty($search))
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-reset">إعادة تعيين</a>
-            @endif
-        </form>
-    </div>
 
-    <!-- Users Table Card -->
-    <div class="table-card">
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم المستخدم</th>
-                        <th>اسم القاعة</th>
-                        <th>العنوان</th>
-                        <th>البريد الإلكتروني</th>
-                        <th>رقم الهاتف</th>
-                        <th>تاريخ انتهاء التجربة</th>
-                        <th>الحالة</th>
-                        <th>العمليات والتحكم</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($users as $user)
+            <div class="stat-card desktop-only">
+                <div class="stat-info">
+                    <h4>تطبيق سطح المكتب</h4>
+                    <p>{{ $stats['desktop_only'] }}</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fa-solid fa-desktop"></i>
+                </div>
+            </div>
+
+            <div class="stat-card desktop-mobile">
+                <div class="stat-info">
+                    <h4>مكتب + هاتف</h4>
+                    <p>{{ $stats['desktop_mobile'] }}</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+            </div>
+
+            <div class="stat-card permanent">
+                <div class="stat-info">
+                    <h4>تفعيل دائم</h4>
+                    <p>{{ $stats['permanent'] }}</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter/Search Bar -->
+        <div class="filter-card">
+            <form action="{{ route('admin.dashboard') }}" method="GET" class="search-form">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" name="search" value="{{ $search }}" class="search-input" placeholder="ابحث باسم المستخدم، البريد الإلكتروني، أو اسم القاعة...">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-search"></i> بحث
+                </button>
+                @if(!empty($search))
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">إلغاء الفلترة</a>
+                @endif
+            </form>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
                         <tr>
-                            <td>
-                                <div style="font-weight: 600;">{{ $user->username }}</div>
-                            </td>
-                            <td>{{ $user->hallname ?? '—' }}</td>
-                            <td>{{ $user->adresse ?? '—' }}</td>
-                            <td style="font-family: 'Outfit', sans-serif;">{{ $user->email }}</td>
-                            <td style="font-family: 'Outfit', sans-serif;">{{ $user->numperPhone ?? '—' }}</td>
-                            <td>
-                                <span style="font-family: 'Outfit', sans-serif; font-weight: 500;">
+                            <th><i class="fa-solid fa-user"></i> اسم المستخدم</th>
+                            <th><i class="fa-solid fa-building"></i> اسم القاعة</th>
+                            <th><i class="fa-solid fa-location-dot"></i> العنوان</th>
+                            <th><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</th>
+                            <th><i class="fa-solid fa-phone"></i> رقم الهاتف</th>
+                            <th><i class="fa-solid fa-calendar-days"></i> تاريخ الانتهاء</th>
+                            <th><i class="fa-solid fa-shield"></i> الحالة</th>
+                            <th><i class="fa-solid fa-gears"></i> الإجراءات والتحكم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($users as $user)
+                            <tr>
+                                <td style="font-weight: 600;">{{ $user->username }}</td>
+                                <td>{{ $user->hallname ?? '—' }}</td>
+                                <td>{{ $user->adresse ?? '—' }}</td>
+                                <td style="font-family: 'Outfit';">{{ $user->email }}</td>
+                                <td style="font-family: 'Outfit';">{{ $user->numperPhone ?? '—' }}</td>
+                                <td style="font-family: 'Outfit';">
                                     {{ $user->date_experiment ? \Carbon\Carbon::parse($user->date_experiment)->format('Y-m-d') : 'غير محدد' }}
-                                </span>
-                            </td>
-                            <td>
-                                @if($user->status == 2)
-                                    <span class="badge badge-2">سطح المكتب فقط</span>
-                                @elseif($user->status == 3)
-                                    <span class="badge badge-3">سطح المكتب + الهاتف</span>
-                                @elseif($user->status == 4)
-                                    <span class="badge badge-4">تفعيل دائم</span>
-                                @else
-                                    <span class="badge badge-0">غير مفعل ({{ $user->status }})</span>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="actions-cell">
-                                    <!-- Status 2 Button -->
-                                    <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        <input type="hidden" name="status" value="2">
-                                        <button type="submit" class="btn-action btn-status-2" title="العمل على تطبيق سطح المكتب فقط">مكتب فقط</button>
-                                    </form>
+                                </td>
+                                <td>
+                                    @if($user->status == 2)
+                                        <span class="status-badge status-2"><i class="fa-solid fa-desktop"></i> سطح المكتب فقط</span>
+                                    @elseif($user->status == 3)
+                                        <span class="status-badge status-3"><i class="fa-solid fa-circle-check"></i> مكتب وهاتف</span>
+                                    @elseif($user->status == 4)
+                                        <span class="status-badge status-4"><i class="fa-solid fa-star"></i> تفعيل دائم</span>
+                                    @else
+                                        <span class="status-badge status-default"><i class="fa-solid fa-circle-minus"></i> غير مفعل ({{ $user->status }})</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="actions-group">
+                                        <!-- Status 2 -->
+                                        <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <input type="hidden" name="status" value="2">
+                                            <button type="submit" class="action-icon-btn btn-s2" title="العمل على سطح المكتب فقط">
+                                                <i class="fa-solid fa-desktop"></i>
+                                            </button>
+                                        </form>
 
-                                    <!-- Status 3 Button -->
-                                    <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        <input type="hidden" name="status" value="3">
-                                        <button type="submit" class="btn-action btn-status-3" title="العمل على سطح المكتب والهاتف">مكتب وهاتف</button>
-                                    </form>
+                                        <!-- Status 3 -->
+                                        <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <input type="hidden" name="status" value="3">
+                                            <button type="submit" class="action-icon-btn btn-s3" title="العمل على الهاتف والكمبيوتر">
+                                                <i class="fa-solid fa-mobile-screen"></i>
+                                            </button>
+                                        </form>
 
-                                    <!-- Status 4 Button -->
-                                    <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        <input type="hidden" name="status" value="4">
-                                        <button type="submit" class="btn-action btn-status-4" title="تفعيل دائم للمستخدم">تفعيل دائم</button>
-                                    </form>
+                                        <!-- Status 4 -->
+                                        <form action="{{ route('admin.users.updateStatus', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <input type="hidden" name="status" value="4">
+                                            <button type="submit" class="action-icon-btn btn-s4" title="تفعيل دائم">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                            </button>
+                                        </form>
 
-                                    <!-- Date Picker Trigger Button -->
-                                    <button class="btn-action btn-date" onclick="openDateModal('{{ $user->id }}', '{{ $user->username }}', '{{ $user->date_experiment }}')">
-                                        تعديل التاريخ
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8">
-                                <div class="empty-state">
-                                    <h3>لا يوجد مستخدمين</h3>
-                                    <p>لم يتم العثور على أي قاعات تطابق خيارات البحث الحالية.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        @if($users->hasPages())
-            <div class="pagination-wrapper">
-                {{ $users->appends(['search' => $search])->links() }}
+                                        <!-- Date Edit -->
+                                        <button class="action-icon-btn btn-dt" onclick="openDateModal('{{ $user->id }}', '{{ $user->username }}', '{{ $user->date_experiment }}')" title="تغيير تاريخ الانتهاء">
+                                            <i class="fa-solid fa-calendar-pen"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 3rem;">
+                                    <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; color: var(--text-secondary); margin-bottom: 1rem; display: block;"></i>
+                                    <p style="color: var(--text-secondary);">لا يوجد قاعات لعرضها.</p>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-        @endif
+            @if($users->hasPages())
+                <div class="pagination-container">
+                    {{ $users->appends(['search' => $search])->links() }}
+                </div>
+            @endif
+        </div>
     </div>
-</div>
+</main>
 
-<!-- Custom Calendar/Date Modal -->
-<div class="modal" id="date-modal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeDateModal()">&times;</button>
-        <div class="modal-header">
-            <h3 class="modal-title">تغيير تاريخ انتهاء الصلاحية</h3>
-            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;" id="modal-user-subtitle"></p>
+<!-- Date picker Modal -->
+<div class="custom-modal" id="dateModal">
+    <div class="modal-body">
+        <div class="modal-title-wrapper">
+            <h3 id="modalTitle">تغيير تاريخ انتهاء الصلاحية</h3>
+            <button class="close-modal-btn" onclick="closeDateModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <form id="date-form" method="POST">
+        <form id="modalForm" method="POST">
             @csrf
-            <div class="form-group">
-                <label for="date_experiment" class="form-label">اختر تاريخ الانتهاء الجديد:</label>
-                <input type="date" name="date_experiment" id="date_experiment" class="datepicker-input" required>
+            <div>
+                <label for="date_experiment" class="form-label">تاريخ الصلاحية الجديد:</label>
+                <input type="date" name="date_experiment" id="date_experiment" class="form-control-date" required>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-reset" onclick="closeDateModal()" style="padding: 0.6rem 1.2rem;">إلغاء</button>
-                <button type="submit" class="btn btn-primary" style="padding: 0.6rem 1.2rem;">تحديث التاريخ</button>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeDateModal()">إلغاء</button>
+                <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Success Toast Notification -->
+@if(session('success'))
+    <div class="toast-notification" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>{{ session('success') }}</span>
+    </div>
+@endif
 
 <script>
-    function openDateModal(userId, username, currentDate) {
-        const modal = document.getElementById('date-modal');
-        const form = document.getElementById('date-form');
-        const subtitle = document.getElementById('modal-user-subtitle');
-        const dateInput = document.getElementById('date_experiment');
+    function openDateModal(id, username, date) {
+        const modal = document.getElementById('dateModal');
+        const form = document.getElementById('modalForm');
+        const title = document.getElementById('modalTitle');
+        const input = document.getElementById('date_experiment');
 
-        // Set form action dynamic URL
-        form.action = `/admin/dashboard/users/${userId}/expiration`;
+        form.action = `/admin/dashboard/users/${id}/expiration`;
+        title.innerText = `تغيير تاريخ الصلاحية لـ: ${username}`;
         
-        subtitle.textContent = `المستخدم: ${username}`;
-        
-        // Format date to YYYY-MM-DD
-        if (currentDate) {
-            const formattedDate = currentDate.split(' ')[0];
-            dateInput.value = formattedDate;
+        if(date) {
+            input.value = date.split(' ')[0];
         } else {
-            dateInput.value = '';
+            input.value = '';
         }
 
-        modal.classList.add('active');
+        modal.classList.add('show');
     }
 
     function closeDateModal() {
-        const modal = document.getElementById('date-modal');
-        modal.classList.remove('active');
+        document.getElementById('dateModal').classList.remove('show');
     }
 
-    // Auto-fade success alert
-    window.addEventListener('DOMContentLoaded', () => {
-        const successAlert = document.getElementById('success-alert');
-        if (successAlert) {
+    // Auto close toast
+    window.addEventListener('load', () => {
+        const toast = document.getElementById('toast');
+        if(toast) {
             setTimeout(() => {
-                successAlert.style.opacity = '0';
-                setTimeout(() => successAlert.remove(), 400);
-            }, 4000);
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
         }
     });
 </script>

@@ -33,7 +33,6 @@ class User extends Authenticatable
         'username',
         "date_experiment",
         "adresse",
-
         'role',
         'role_id',
         'user_id',

@@ -1,9 +1,9 @@
 <x-app-layout>
-    <x-slot name="title">لوحة التحكم - زفة</x-slot>
+    <x-slot name="title">لوحة التحكم - القاعات</x-slot>
     <x-slot name="header">
         <div>
-            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">لوحة تحكم المشرف</h1>
-            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">إدارة ومتابعة قاعات الأفراح والمستخدمين في النظام.</p>
+            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">إدارة القاعات</h1>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">إدارة ومتابعة قاعات الأفراح وتراخيص المستخدمين في النظام.</p>
         </div>
     </x-slot>
 
@@ -89,7 +89,7 @@
 
         <!-- Filter & Search Bar -->
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 p-4 mb-6">
-            <form action="{{ route('admin.dashboard') }}" method="GET" class="flex flex-col sm:flex-row gap-3 items-center w-full">
+            <form action="{{ route('dashboard.users') }}" method="GET" class="flex flex-col sm:flex-row gap-3 items-center w-full">
                 <div class="relative w-full flex-1">
                     <input type="text" name="search" value="{{ $search }}" placeholder="ابحث باسم المستخدم، البريد الإلكتروني، أو اسم القاعة..." class="w-full pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-slate-50 dark:bg-slate-900 dark:text-slate-200 transition-colors">
                     <div class="absolute left-3 top-2.5 text-slate-400 dark:text-slate-500">
@@ -104,7 +104,7 @@
                         بحث
                     </button>
                     @if(!empty($search))
-                        <a href="{{ route('admin.dashboard') }}" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors text-center">
+                        <a href="{{ route('dashboard.users') }}" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors text-center">
                             إلغاء الفلترة
                         </a>
                     @endif
@@ -237,7 +237,7 @@
 
         <!-- Expiration Date Picker Modal -->
         <x-modal name="date-modal" title="تغيير تاريخ انتهاء الصلاحية" maxWidth="md">
-            <form :action="'/admin/dashboard/users/' + editingUser.id + '/expiration'" method="POST" class="space-y-4">
+            <form :action="'/users/' + editingUser.id + '/expiration'" method="POST" class="space-y-4">
                 @csrf
                 <div>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">

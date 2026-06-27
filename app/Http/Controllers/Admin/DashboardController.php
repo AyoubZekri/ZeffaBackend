@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         $users = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('admin.dashboard', compact('users', 'search', 'stats'));
+        return view('dashboard.users', compact('users', 'search', 'stats'));
     }
 
     public function updateStatus(Request $request, $id)

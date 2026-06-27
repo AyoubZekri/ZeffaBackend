@@ -27,7 +27,7 @@
             <svg x-show="darkMode" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
         </button>
 
-        <!-- Notifications -->
+        <!-- Notifications
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" @click.away="open = false" class="text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors focus:outline-none relative">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,8 +51,8 @@
             </div>
         </div>
 
-        <!-- Profile Dropdown -->
-        <div x-data="{ profileOpen: false }" class="relative">
+        Profile Dropdown -->
+        <!-- <div x-data="{ profileOpen: false }" class="relative">
             <button @click="profileOpen = !profileOpen" @click.away="profileOpen = false" class="flex items-center space-x-2 focus:outline-none ring-2 ring-transparent focus:ring-indigo-500/30 rounded-full transition-all">
                 <img class="h-9 w-9 rounded-full object-cover border-2 border-indigo-100 dark:border-indigo-900/50 shadow-sm" src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="User avatar">
             </button>
@@ -78,6 +78,6 @@
                     </button>
                 </form>
             </div>
-        </div>
+        </div>  -->
     </div>
 </header>

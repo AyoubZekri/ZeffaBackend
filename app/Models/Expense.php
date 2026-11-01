@@ -9,6 +9,7 @@ class Expense extends Model
     protected $fillable = [
         'uuid',
         'user_id',
+        'reservation_uuid',
         'type',
         'description',
         'value',

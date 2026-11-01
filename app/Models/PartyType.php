@@ -17,6 +17,7 @@ class PartyType extends Model
         'seasonal_price',
         'icon',
         'guest_pricing_tiers',
+        'default_expenses',
         "is_delete"
     ];
 

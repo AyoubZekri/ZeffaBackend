@@ -22,6 +22,7 @@ class Reservation extends Model
         'number_of_men',
         'number_of_women',
         'added_by_name',
+        'hall_uuid',
         "is_delete"
     ];
 

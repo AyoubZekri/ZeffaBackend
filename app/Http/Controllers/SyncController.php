@@ -24,6 +24,7 @@ class SyncController extends Controller
         'notifications',
         'terms',
         'terms_content',
+        'halls',
     ];
 
     // ===============================================
@@ -313,6 +314,7 @@ class SyncController extends Controller
             'notifications',
             'terms',
             'terms_content',
+            'halls',
         ];
         if (!in_array($table, $allowedTables)) {
             return response()->json(['status' => 0, 'message' => 'جدول غير مسموح'], 400);

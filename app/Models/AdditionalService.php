@@ -11,6 +11,7 @@ class AdditionalService extends Model
         'user_id',
         'name',
         'price',
+        'price_type',
         "is_delete"
     ];
 }
